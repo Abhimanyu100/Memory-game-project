@@ -3,7 +3,10 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Contributing](#contributing)
+* [Descripton of the Game](#Descripton of the Game)
+
+# Instructions
+To play the game download the contents of the repository and open `index.html` in your internet browser.
 
 # Descripton of the Game
 This a memory game project. In this game, players try to find the eight pair of cards located 
