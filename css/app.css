@@ -70,6 +70,7 @@ h1 {
     transform: rotateY(0);
     background: #02b3e4;
     cursor: default;
+    pointer-events: none;
 }
 
 .deck .card.show {
@@ -128,4 +129,7 @@ input[type=button] {
     box-shadow: 3px 3px 16px rgb(39, 39, 39);
     padding: 10px;
     cursor: pointer;
+}
+time {
+    padding-left: 20px;
 }

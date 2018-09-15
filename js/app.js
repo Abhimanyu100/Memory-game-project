@@ -18,6 +18,11 @@ let deck = document.getElementsByClassName('deck');
 let matchedCards = 0;
 let moves = 0;
 let clickable = true;
+let min = 0;
+let sec = 0;
+let timerRunning = false;
+let timerId;
+let stars = 3;
 
 
 function storeToArray() {
@@ -58,6 +63,10 @@ function pushCardsBack() {
 // click event listener for every card
 for (let i = 0; i < allCards.length; i++) {
     allCards[i].addEventListener('click', function () {
+        if (timerRunning === false) {
+            timer();
+            timerRunning = true;
+        }
         if (clickable === true) {
             this.classList.add('open');
             this.classList.add('show');
@@ -106,7 +115,7 @@ function countMove() {
 function youWon() {
     document.getElementById('mainDiv').style.display = 'none';
     document.getElementById('modal').style.display = 'block';
-    document.querySelector('#result').innerHTML = `You took ${moves} moves to win the Game...`;
+    document.querySelector('#result').innerHTML = `You scored ${stars} Stars within ${min} Minutes and ${sec} Seconds taking ${moves} moves.`;
 
 }
 
@@ -118,11 +127,20 @@ document.getElementById('replayBtn').addEventListener('click', function () {
 });
 // replay function 
 function replay() {
-    matchedCards = 0;
-    clickable = true;
     document.getElementById('modal').style.display = 'none';
     document.getElementById('mainDiv').style.display = 'flex';
-    document.getElementsByClassName('card');
+    document.getElementById('min').innerHTML = '00';
+    document.getElementById('sec').innerHTML = '00';
+    timerRunning = false;
+    sec = 0;
+    min = 0;
+    clearInterval(timerId);
+    openCard = [];
+    matchedCards = 0;
+    clickable = true;
+    stars = 3;
+
+    // document.getElementsByClassName('card');
     removeClass();
     moves = 0;
     document.querySelector('.moves').innerHTML = 0;
@@ -143,12 +161,29 @@ function removeClass() {
 function starRating() {
     let starsList = document.querySelector('.stars');
     if (moves === 15) {
+        stars = 2;
         starsList.firstElementChild.remove();
     } else if (moves === 20) {
+        stars = 1;
         starsList.firstElementChild.remove();
     } else if (moves === 28) {
+        stars = 0;
         starsList.firstElementChild.remove();
     }
+}
+
+// timer function here 
+function timer() {
+    timerId = setInterval(() => {
+        sec += 1;
+        if (sec === 60) {
+            min += 1
+            document.getElementById('min').innerHTML = ('0' + min).slice(-2);
+            sec = 0;
+        }
+        document.getElementById('sec').innerHTML = ('0' + sec).slice(-2);
+    }, 1000);
+
 }
 
 storeToArray();
